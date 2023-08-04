@@ -1,0 +1,14 @@
+FROM ubuntu:20.04
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+RUN apt-get update && apt install -y --no-install-recommends \
+        ca-certificates curl gnupg2 python3 python3-pip \
+    && rm -rf /var/lib/apt/lists*
+
+WORKDIR /app/workspace/generator
+
+COPY ../generator/requirements.txt /app/workspace/generator/
+RUN python3 -m pip install --no-cache-dir -r /app/workspace/generator/requirements.txt
+
+CMD python3 app/server.py

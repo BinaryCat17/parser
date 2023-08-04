@@ -1,0 +1,16 @@
+services:
+  generator:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.generator.dev
+    volumes:
+      - type: bind
+        source: ../
+        target: /app/workspace/
+      - resources:/app/workspace/resources
+    ports:
+      - "8081:8081"
+    env_file: ../.env
+
+volumes:
+  resources:
